@@ -1,0 +1,16 @@
+target
+.git
+.gitignore
+
+.idea
+.vscode
+
+*.iml
+
+mvnw.cmd
+
+logs
+
+.DS_Store
+
+.env
