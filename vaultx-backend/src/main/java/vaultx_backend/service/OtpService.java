@@ -3,6 +3,8 @@ package vaultx_backend.service;
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.type.PhoneNumber;
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -12,20 +14,27 @@ import java.util.Random;
 @Service
 public class OtpService {
 
-    private static final String ACCOUNT_SID = "TWILIO_ACCOUNT_SID";
-    private static final String AUTH_TOKEN = "TWILIO_AUTH_TOKEN";
+    @Value("${twilio.account.sid}")
+    private String accountSid;
+
+    @Value("${twilio.auth.token}")
+    private String authToken;
 
     private final Map<String, String> otpStore = new HashMap<>();
 
-    static {
-        Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+    public OtpService(
+            @Value("${twilio.account.sid}") String accountSid,
+            @Value("${twilio.auth.token}") String authToken) {
+
+        Twilio.init(accountSid, authToken);
     }
 
     public void sendOtp(String phone) {
 
-        String otp =
-                String.format("%06d",
-                        new Random().nextInt(1000000));
+        String otp = String.format(
+                "%06d",
+                new Random().nextInt(1000000)
+        );
 
         String messageBody =
                 "Your VaultX verification code is: " + otp;
@@ -65,13 +74,9 @@ public class OtpService {
 
                         "Dear Customer,\n\n" +
 
-                        "A transaction has been successfully processed on your account.\n\n" +
-
                         "Transaction Type : " + type.toUpperCase() + "\n" +
                         "Amount           : ₹" + amount + "\n" +
                         "Available Balance: ₹" + balance + "\n\n" +
-
-                        "If this transaction was not initiated by you, please contact VaultX Support immediately.\n\n" +
 
                         "Thank you for banking with VaultX.\n" +
                         "Secure • Reliable • Future Ready";

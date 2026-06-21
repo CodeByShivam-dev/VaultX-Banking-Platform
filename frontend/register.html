@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VaultX - Create Account | Secure Banking</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #02040a;
+            color: white;
+            overflow-x: hidden;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .bg-grid {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(59, 130, 246, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(59, 130, 246, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            z-index: 1;
+        }
+
+        .bg-gradient-overlay {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 15% 25%, rgba(37, 99, 235, 0.12) 0%, transparent 50%),
+                radial-gradient(circle at 85% 75%, rgba(8, 145, 178, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(2, 6, 23, 1) 0%, rgba(2, 4, 10, 1) 100%);
+            z-index: 2;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(180px);
+            opacity: 0.55;
+            z-index: 3;
+            animation: orbFloat 15s ease-in-out infinite;
+        }
+
+        .orb.one {
+            width: 550px;
+            height: 550px;
+            background: #1d4ed8;
+            top: -200px;
+            left: -150px;
+        }
+
+        .orb.two {
+            width: 480px;
+            height: 480px;
+            background: #0891b2;
+            bottom: -180px;
+            right: -180px;
+            animation-delay: -5s;
+        }
+
+        .orb.three {
+            width: 320px;
+            height: 320px;
+            background: #3b82f6;
+            top: 60%;
+            left: -100px;
+            opacity: 0.35;
+            animation-delay: -10s;
+        }
+
+        @keyframes orbFloat {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(40px, 30px) scale(1.05); }
+            50% { transform: translate(20px, -20px) scale(0.98); }
+            75% { transform: translate(-30px, 25px) scale(1.02); }
+        }
+
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 4;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(59, 130, 246, 0.6);
+            border-radius: 50%;
+            animation: particleFloat 20s linear infinite;
+        }
+
+        @keyframes particleFloat {
+            0% { transform: translateY(100vh) translateX(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) translateX(50px); opacity: 0; }
+        }
+
+        .main-wrapper {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 480px;
+            padding: 20px;
+            margin: 40px 20px;
+            animation: wrapperEnter 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes wrapperEnter {
+            from {
+                opacity: 0;
+                transform: translateY(60px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .logo-section {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .logo {
+            font-size: 4rem;
+            font-weight: 900;
+            letter-spacing: 5px;
+            background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 30%, #06b6d4 70%, #0891b2 100%);
+            background-size: 200% 200%;
+            color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+            text-shadow: 0 0 60px rgba(59, 130, 246, 0.6);
+            animation: logoGradient 4s ease infinite;
+            margin-bottom: 8px;
+        }
+
+        @keyframes logoGradient {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .logo-icon {
+            font-size: 2.2rem;
+            color: #06b6d4;
+            margin-left: 8px;
+            animation: iconPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes iconPulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .page-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #e2e8f0;
+            margin-bottom: 8px;
+        }
+
+        .page-subtitle {
+            font-size: 1rem;
+            color: #94a3b8;
+            font-weight: 300;
+        }
+
+        .card {
+            background: rgba(5, 10, 25, 0.78);
+            backdrop-filter: blur(25px) saturate(180%);
+            border-radius: 28px;
+            border: 1px solid rgba(59, 130, 246, 0.18);
+            border-top: 1px solid rgba(59, 130, 246, 0.3);
+            padding: 45px 40px;
+            box-shadow: 
+                0 30px 100px rgba(0, 0, 0, 0.85),
+                0 0 60px rgba(37, 99, 235, 0.12),
+                inset 0 0 40px rgba(59, 130, 246, 0.05);
+            animation: cardEnter 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.3s backwards;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @keyframes cardEnter {
+            from {
+                opacity: 0;
+                transform: translateY(40px) rotateX(15deg) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) rotateX(0) scale(1);
+            }
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(59, 130, 246, 0.08),
+                transparent
+            );
+            animation: cardShine 8s ease-in-out infinite;
+        }
+
+        @keyframes cardShine {
+            0%, 100% { left: -100%; }
+            50% { left: 100%; }
+        }
+
+        .card-top-line {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70px;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, #3b82f6, transparent);
+            border-radius: 2px;
+        }
+
+        .form-group {
+            margin-bottom: 22px;
+            position: relative;
+        }
+
+        .form-label {
+            display: block;
+            color: #cbd5e1;
+            font-size: 0.92rem;
+            font-weight: 500;
+            margin-bottom: 10px;
+            letter-spacing: 0.3px;
+        }
+
+        .form-label i {
+            color: #3b82f6;
+            margin-right: 6px;
+            font-size: 0.9rem;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #64748b;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 17px 18px 17px 48px;
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 15px;
+            color: white;
+            font-size: 1rem;
+            font-weight: 400;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .form-control:focus {
+            background: rgba(30, 41, 59, 0.9);
+            border-color: rgba(59, 130, 246, 0.6);
+            box-shadow: 
+                0 0 25px rgba(59, 130, 246, 0.3),
+                0 0 0 3px rgba(59, 130, 246, 0.15);
+            color: white;
+            outline: none;
+        }
+
+        .form-control:focus + .input-icon {
+            color: #3b82f6;
+        }
+
+        .form-control::placeholder {
+            color: #64748b;
+            font-weight: 300;
+        }
+
+        .progress-stepper {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 35px;
+            position: relative;
+        }
+
+        .progress-stepper::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: rgba(59, 130, 246, 0.2);
+            z-index: 1;
+        }
+
+        .step {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .step-number {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: rgba(15, 23, 42, 0.8);
+            border: 2px solid rgba(59, 130, 246, 0.3);
+            color: #94a3b8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.4s ease;
+        }
+
+        .step.active .step-number {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            border-color: #3b82f6;
+            color: white;
+            box-shadow: 0 0 20px rgba(37, 99, 235, 0.5);
+            transform: scale(1.1);
+        }
+
+        .step-label {
+            font-size: 0.82rem;
+            color: #94a3b8;
+            font-weight: 400;
+        }
+
+        .step.active .step-label {
+            color: #cbd5e1;
+            font-weight: 500;
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 19px 32px;
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 50%, #0891b2 100%);
+            color: white;
+            border: none;
+            border-radius: 16px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            letter-spacing: 0.8px;
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            box-shadow: 
+                0 10px 40px rgba(37, 99, 235, 0.4),
+                0 0 20px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-primary i {
+            font-size: 1.2rem;
+            transition: all 0.4s ease;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                135deg,
+                rgba(255, 255, 255, 0.1) 0%,
+                transparent 50%,
+                rgba(255, 255, 255, 0.05) 100%
+            );
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: 
+                0 20px 60px rgba(37, 99, 235, 0.6),
+                0 0 40px rgba(59, 130, 246, 0.5);
+        }
+
+        .btn-primary:hover i {
+            transform: translateX(5px) scale(1.1);
+        }
+
+        .btn-primary:hover::before {
+            opacity: 1;
+        }
+
+        .back-section {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .back-link {
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 400;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            padding: 12px 24px;
+            border-radius: 12px;
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(59, 130, 246, 0.15);
+        }
+
+        .back-link i {
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: #cbd5e1;
+            background: rgba(30, 41, 59, 0.7);
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+
+        .back-link:hover i {
+            transform: translateX(-5px);
+        }
+
+        .note {
+            font-size: 0.85rem;
+            color: #64748b;
+            text-align: center;
+            margin-top: 20px;
+            font-weight: 300;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .note i {
+            color: #0891b2;
+            font-size: 0.9rem;
+        }
+
+        /* ===== RESPONSIVE - MOBILE OPTIMIZED ===== */
+        
+        /* Tablet (576px - 768px) */
+        @media (max-width: 768px) {
+            .main-wrapper {
+                max-width: 420px;
+                padding: 15px;
+                margin: 30px 15px;
+            }
+
+            .logo { font-size: 3rem; letter-spacing: 4px; }
+            .page-title { font-size: 1.3rem; }
+            .card { padding: 35px 30px; }
+            .btn-primary { padding: 17px 28px; font-size: 1rem; }
+        }
+
+        /* MOBILE (481px - 575px) */
+        @media (max-width: 575px) {
+            .main-wrapper {
+                max-width: 100%;
+                padding: 12px;
+                margin: 25px 12px;
+            }
+
+            .logo { font-size: 2.5rem; letter-spacing: 3px; }
+            .logo-icon { font-size: 1.8rem; }
+            .page-title { font-size: 1.1rem; }
+            .page-subtitle { font-size: 0.85rem; }
+            
+            .card { padding: 30px 25px; border-radius: 24px; }
+            .card-top-line { width: 50px; }
+            
+            .progress-stepper { margin-bottom: 25px; }
+            .progress-stepper::before { top: 12px; }
+            .step-number { width: 30px; height: 30px; font-size: 0.8rem; }
+            .step-label { display: none; }
+            
+            .form-group { margin-bottom: 18px; }
+            .form-label { font-size: 0.85rem; margin-bottom: 8px; }
+            .form-label i { font-size: 0.8rem; }
+            
+            .form-control { padding: 14px 15px 14px 42px; font-size: 0.95rem; border-radius: 12px; }
+            .input-icon { left: 14px; font-size: 0.9rem; }
+            
+            .btn-primary { padding: 15px 24px; font-size: 0.95rem; gap: 8px; }
+            .btn-primary i { font-size: 1rem; }
+            
+            .back-section { margin-top: 25px; }
+            .back-link { padding: 10px 18px; font-size: 0.85rem; gap: 6px; }
+            
+            .note { font-size: 0.75rem; margin-top: 15px; gap: 6px; }
+            .note i { font-size: 0.8rem; }
+        }
+
+        /* SMALL MOBILE (401px - 480px) */
+        @media (max-width: 480px) {
+            .main-wrapper {
+                padding: 10px;
+                margin: 20px 10px;
+            }
+
+            .logo { font-size: 2.2rem; letter-spacing: 2px; }
+            .logo-icon { font-size: 1.5rem; }
+            .page-title { font-size: 1rem; margin-bottom: 6px; }
+            .page-subtitle { font-size: 0.8rem; }
+            
+            .card { padding: 25px 20px; border-radius: 20px; }
+            .card-top-line { width: 40px; }
+            
+            .progress-stepper { margin-bottom: 20px; }
+            .progress-stepper::before { top: 10px; height: 2px; }
+            .step-number { width: 28px; height: 28px; font-size: 0.75rem; border-width: 1px; }
+            
+            .form-group { margin-bottom: 16px; }
+            .form-label { font-size: 0.8rem; margin-bottom: 6px; }
+            .form-label i { font-size: 0.75rem; margin-right: 4px; }
+            
+            .form-control { padding: 12px 13px 12px 38px; font-size: 0.9rem; border-radius: 10px; }
+            .input-icon { left: 12px; font-size: 0.85rem; }
+            
+            .btn-primary { padding: 14px 20px; font-size: 0.9rem; gap: 6px; border-radius: 12px; }
+            .btn-primary i { font-size: 0.9rem; }
+            
+            .back-link { padding: 9px 16px; font-size: 0.8rem; gap: 5px; border-radius: 10px; }
+            .back-link i { font-size: 0.85rem; }
+            
+            .note { font-size: 0.7rem; margin-top: 12px; }
+            .note i { font-size: 0.75rem; }
+        }
+
+        /* ULTRA MOBILE (≤400px) - iPhone SE, Tiny Phones */
+        @media (max-width: 400px) {
+            .main-wrapper {
+                padding: 8px;
+                margin: 18px 8px;
+            }
+
+            .logo { font-size: 1.8rem; letter-spacing: 1px; margin-bottom: 6px; }
+            .logo-icon { font-size: 1.3rem; margin-left: 5px; }
+            .page-title { font-size: 0.9rem; margin-bottom: 4px; }
+            .page-subtitle { font-size: 0.7rem; }
+            
+            .card { padding: 22px 18px; border-radius: 18px; box-shadow: 0 20px 60px rgba(0,0,0,0.7); }
+            .card-top-line { width: 35px; height: 3px; }
+            
+            .progress-stepper { margin-bottom: 18px; }
+            .progress-stepper::before { top: 9px; height: 2px; }
+            .step-number { width: 26px; height: 26px; font-size: 0.7rem; }
+            
+            .form-group { margin-bottom: 14px; }
+            .form-label { font-size: 0.75rem; margin-bottom: 5px; }
+            .form-label i { font-size: 0.7rem; margin-right: 3px; }
+            
+            .form-control { padding: 11px 12px 11px 35px; font-size: 0.85rem; border-radius: 9px; }
+            .input-icon { left: 11px; font-size: 0.8rem; }
+            
+            .btn-primary { padding: 13px 18px; font-size: 0.85rem; gap: 5px; border-radius: 10px; }
+            .btn-primary i { font-size: 0.85rem; }
+            
+            .back-section { margin-top: 20px; }
+            .back-link { padding: 8px 14px; font-size: 0.75rem; gap: 4px; border-radius: 8px; }
+            .back-link i { font-size: 0.75rem; }
+            
+            .note { font-size: 0.65rem; margin-top: 10px; gap: 4px; }
+            .note i { font-size: 0.7rem; }
+        }
+
+        /* EXTRA SMALL (≤375px) - Very Old Phones */
+        @media (max-width: 375px) {
+            .main-wrapper {
+                padding: 6px;
+                margin: 15px 6px;
+            }
+
+            .logo { font-size: 1.6rem; }
+            .logo-icon { font-size: 1.1rem; }
+            .page-title { font-size: 0.85rem; }
+            .page-subtitle { font-size: 0.65rem; }
+            
+            .card { padding: 20px 16px; border-radius: 16px; }
+            .step-number { width: 24px; height: 24px; font-size: 0.65rem; }
+            
+            .form-control { padding: 10px 11px 10px 32px; font-size: 0.8rem; border-radius: 8px; }
+            
+            .btn-primary { padding: 12px 16px; font-size: 0.8rem; }
+            .back-link { padding: 7px 12px; font-size: 0.7rem; }
+            .note { font-size: 0.6rem; }
+        }
+
+        /* Touch Device */
+        @media (hover: none) and (pointer: coarse) {
+            .back-link:hover,
+            .btn-primary:hover {
+                transform: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-grid"></div>
+    <div class="bg-gradient-overlay"></div>
+    
+    <div class="orb one"></div>
+    <div class="orb two"></div>
+    <div class="orb three"></div>
+    
+    <div class="particles" id="particles"></div>
+
+    <div class="main-wrapper">
+        <div class="logo-section">
+            <div class="logo">
+                VaultX
+                <i class="fas fa-shield-halved logo-icon"></i>
+            </div>
+            <div class="page-title">Create Your Account</div>
+            <div class="page-subtitle">Join VaultX Secure Banking System</div>
+        </div>
+
+        <div class="card">
+            <div class="card-top-line"></div>
+
+            <div class="progress-stepper">
+                <div class="step active">
+                    <div class="step-number">1</div>
+                    <div class="step-label">Personal Info</div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-label">Verification</div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-label">Complete</div>
+                </div>
+            </div>
+
+            <form id="registerForm">
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-user"></i> Full Name
+                    </label>
+                    <div class="input-wrapper">
+                        <input type="text" class="form-control" id="name" placeholder="Enter your full name" required>
+                        <i class="fas fa-user input-icon"></i>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-male"></i> Father's Name
+                    </label>
+                    <div class="input-wrapper">
+                        <input type="text" class="form-control" id="father" placeholder="Enter your father's name" required>
+                        <i class="fas fa-male input-icon"></i>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-female"></i> Mother's Name
+                    </label>
+                    <div class="input-wrapper">
+                        <input type="text" class="form-control" id="mother" placeholder="Enter your mother's name" required>
+                        <i class="fas fa-female input-icon"></i>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-id-card"></i> PAN Card Number
+                    </label>
+                    <div class="input-wrapper">
+                        <input type="text" class="form-control" id="pan" placeholder="ABCDE1234F" pattern="[A-Za-z0-9]{10}" required>
+                        <i class="fas fa-id-card input-icon"></i>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-envelope"></i> Email Address
+                    </label>
+                    <div class="input-wrapper">
+                        <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                        <i class="fas fa-envelope input-icon"></i>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-phone"></i> Phone Number
+                    </label>
+                    <div class="input-wrapper">
+                        <input type="tel" class="form-control" id="phone" placeholder="+91 XXXXX XXXXX" pattern="[0-9]{10}" required>
+                        <i class="fas fa-phone input-icon"></i>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-primary">
+                    <i class="fas fa-user-plus"></i>
+                    Register & Send OTP
+                </button>
+
+                <div id="registerMessage" style="
+color:#ef4444;
+margin-top:10px;
+text-align:center;
+font-weight:600;
+display:none;
+"></div>
+
+<div class="note">
+    <i class="fas fa-shield-alt"></i>
+    OTP will be sent to your phone for secure verification
+</div>
+
+                
+            </form>
+
+            <div class="back-section">
+                <a href="index.html" class="back-link">
+                    <i class="fas fa-arrow-left"></i>
+                    Back to Home
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 20;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 20 + 's';
+                particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        createParticles();
+
+        document.addEventListener('mousemove', (e) => {
+            const orbs = document.querySelectorAll('.orb');
+            const mouseX = e.clientX / window.innerWidth - 0.5;
+            const mouseY = e.clientY / window.innerHeight - 0.5;
+
+            orbs.forEach((orb, index) => {
+                const speed = (index + 1) * 15;
+                orb.style.transform = `translate(${mouseX * speed}px, ${mouseY * speed}px)`;
+            });
+        });
+
+        document.getElementById("registerForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+
+           const userData = {
+    name: document.getElementById("name").value,
+    fatherName: document.getElementById("father").value,
+    motherName: document.getElementById("mother").value,
+    panCard: document.getElementById("pan").value,
+    email: document.getElementById("email").value,
+    phone: document.getElementById("phone").value
+};
+            fetch("http://localhost:8080/api/auth/register", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(userData)
+            })
+            .then(res => {
+    console.log("Status =", res.status);
+    return res.text();
+})
+.then(data => {
+
+
+    if(data === "Phone number already registered") {
+
+
+        document.getElementById("registerMessage").style.display = "block";
+
+
+        document.getElementById("registerMessage").innerHTML =
+        'Phone already registered. <a href="login.html">Go to Login</a>';
+
+
+        return;
+    }
+
+
+   localStorage.setItem("accountNumber", data.accountNumber);
+    localStorage.setItem("vaultx_phone", userData.phone);
+
+    window.location.href = "otp.html?type=register";
+})
+            .catch(err => {
+    console.log(err);
+    alert(err);
+})
+        });
+
+        document.querySelectorAll('.form-control').forEach(input => {
+            input.addEventListener('input', function() {
+                if (this.validity.valid) {
+                    this.style.borderColor = 'rgba(16, 185, 129, 0.6)';
+                } else {
+                    this.style.borderColor = '';
+                }
+            });
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+</body>
+</html>

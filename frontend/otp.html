@@ -1,0 +1,1280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VaultX - OTP Verification | Secure Banking</title>
+    
+    <!-- Bootstrap 5.3 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts: Poppins + Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* ===== RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #02040a;
+            color: white;
+            overflow-x: hidden;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        /* ===== DYNAMIC BACKGROUND ===== */
+        .bg-grid {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(59, 130, 246, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(59, 130, 246, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            z-index: 1;
+        }
+
+        .bg-gradient-overlay {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(37, 99, 235, 0.12) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(8, 145, 178, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(2, 6, 23, 1) 0%, rgba(2, 4, 10, 1) 100%);
+            z-index: 2;
+        }
+
+        /* ===== FLOATING ORBS ===== */
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(180px);
+            opacity: 0.55;
+            z-index: 3;
+            animation: orbFloat 15s ease-in-out infinite;
+        }
+
+        .orb.one {
+            width: 550px;
+            height: 550px;
+            background: #1d4ed8;
+            top: -200px;
+            left: -150px;
+        }
+
+        .orb.two {
+            width: 480px;
+            height: 480px;
+            background: #0891b2;
+            bottom: -180px;
+            right: -180px;
+            animation-delay: -5s;
+        }
+
+        .orb.three {
+            width: 350px;
+            height: 350px;
+            background: #3b82f6;
+            top: 50%;
+            right: -120px;
+            opacity: 0.35;
+            animation-delay: -10s;
+        }
+
+        @keyframes orbFloat {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(40px, 30px) scale(1.05); }
+            50% { transform: translate(20px, -20px) scale(0.98); }
+            75% { transform: translate(-30px, 25px) scale(1.02); }
+        }
+
+        /* ===== PARTICLES ===== */
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 4;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(59, 130, 246, 0.6);
+            border-radius: 50%;
+            animation: particleFloat 20s linear infinite;
+        }
+
+        @keyframes particleFloat {
+            0% { transform: translateY(100vh) translateX(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) translateX(50px); opacity: 0; }
+        }
+
+        /* ===== MAIN CONTAINER ===== */
+        .main-wrapper {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 450px;
+            padding: 20px;
+            margin: 40px 20px;
+            animation: wrapperEnter 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes wrapperEnter {
+            from {
+                opacity: 0;
+                transform: translateY(60px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* ===== LOGO SECTION ===== */
+        .logo-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            font-size: 4rem;
+            font-weight: 900;
+            letter-spacing: 5px;
+            background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 30%, #06b6d4 70%, #0891b2 100%);
+            background-size: 200% 200%;
+            color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+            text-shadow: 0 0 60px rgba(59, 130, 246, 0.6);
+            animation: logoGradient 4s ease infinite;
+            margin-bottom: 8px;
+        }
+
+        @keyframes logoGradient {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .logo-icon {
+            font-size: 2.2rem;
+            color: #06b6d4;
+            margin-left: 8px;
+            animation: iconPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes iconPulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .page-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #e2e8f0;
+            margin-bottom: 8px;
+        }
+
+        .page-subtitle {
+            font-size: 1rem;
+            color: #94a3b8;
+            font-weight: 300;
+        }
+
+        /* ===== PREMIUM CARD ===== */
+        .card {
+            background: rgba(5, 10, 25, 0.78);
+            backdrop-filter: blur(25px) saturate(180%);
+            border-radius: 28px;
+            border: 1px solid rgba(59, 130, 246, 0.18);
+            border-top: 1px solid rgba(59, 130, 246, 0.3);
+            padding: 45px 40px;
+            box-shadow: 
+                0 30px 100px rgba(0, 0, 0, 0.85),
+                0 0 60px rgba(37, 99, 235, 0.12),
+                inset 0 0 40px rgba(59, 130, 246, 0.05);
+            animation: cardEnter 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.3s backwards;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @keyframes cardEnter {
+            from {
+                opacity: 0;
+                transform: translateY(40px) rotateX(15deg) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) rotateX(0) scale(1);
+            }
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(59, 130, 246, 0.08),
+                transparent
+            );
+            animation: cardShine 8s ease-in-out infinite;
+        }
+
+        @keyframes cardShine {
+            0%, 100% { left: -100%; }
+            50% { left: 100%; }
+        }
+
+        .card-top-line {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70px;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, #3b82f6, transparent);
+            border-radius: 2px;
+        }
+
+        /* ===== OTP ICON CIRCLE ===== */
+        .otp-icon-circle {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 25px;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.2), rgba(8, 145, 178, 0.2));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid rgba(59, 130, 246, 0.3);
+            box-shadow: 0 0 40px rgba(37, 99, 235, 0.3);
+            animation: iconCirclePulse 2s ease-in-out infinite;
+        }
+
+        @keyframes iconCirclePulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 40px rgba(37, 99, 235, 0.3); }
+            50% { transform: scale(1.05); box-shadow: 0 0 60px rgba(37, 99, 235, 0.5); }
+        }
+
+        .otp-icon {
+            font-size: 2.5rem;
+            color: #3b82f6;
+        }
+
+        /* ===== INFO BOX ===== */
+        .info-box {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 14px;
+            padding: 18px 20px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .info-text {
+            font-size: 0.9rem;
+            color: #94a3b8;
+            line-height: 1.6;
+        }
+
+        .info-text i {
+            color: #0891b2;
+            margin-right: 6px;
+        }
+
+        /* ===== OTP INPUT ===== */
+        .otp-input-wrapper {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .otp-label {
+            display: block;
+            color: #cbd5e1;
+            font-size: 0.92rem;
+            font-weight: 500;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        .otp-input {
+            width: 100%;
+            padding: 22px 30px;
+            background: rgba(15, 23, 42, 0.7);
+            border: 2px solid rgba(59, 130, 246, 0.25);
+            border-radius: 16px;
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 8px;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .otp-input:focus {
+            background: rgba(30, 41, 59, 0.9);
+            border-color: rgba(59, 130, 246, 0.6);
+            box-shadow: 
+                0 0 30px rgba(59, 130, 246, 0.35),
+                0 0 0 4px rgba(59, 130, 246, 0.15);
+            color: white;
+            outline: none;
+        }
+
+        .otp-input::placeholder {
+            color: #64748b;
+            font-weight: 500;
+            letter-spacing: 4px;
+        }
+
+        /* ===== TIMER ===== */
+        .timer-section {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .timer {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 24px;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(245, 164, 37, 0.3);
+            border-radius: 12px;
+            font-size: 0.95rem;
+            color: #f5a425;
+            font-weight: 500;
+        }
+
+        .timer i {
+            font-size: 1.1rem;
+            animation: timerBlink 1s ease-in-out infinite;
+        }
+
+        @keyframes timerBlink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .timer.expired {
+            color: #ef4444;
+            border-color: rgba(239, 68, 68, 0.3);
+        }
+
+        .timer.expired i {
+            animation: none;
+        }
+
+        /* ===== BUTTONS ===== */
+        .btn-primary {
+            width: 100%;
+            padding: 19px 32px;
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 50%, #0891b2 100%);
+            color: white;
+            border: none;
+            border-radius: 16px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            letter-spacing: 0.8px;
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            box-shadow: 
+                0 10px 40px rgba(37, 99, 235, 0.4),
+                0 0 20px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-primary i {
+            font-size: 1.2rem;
+            transition: all 0.4s ease;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                135deg,
+                rgba(255, 255, 255, 0.1) 0%,
+                transparent 50%,
+                rgba(255, 255, 255, 0.05) 100%
+            );
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: 
+                0 20px 60px rgba(37, 99, 235, 0.6),
+                0 0 40px rgba(59, 130, 246, 0.5);
+        }
+
+        .btn-primary:hover i {
+            transform: translateX(5px) scale(1.1);
+        }
+
+        .btn-primary:hover::before {
+            opacity: 1;
+        }
+
+        .btn-secondary {
+            width: 100%;
+            padding: 17px 28px;
+            background: rgba(15, 23, 42, 0.7);
+            color: #e2e8f0;
+            border: 1px solid rgba(59, 130, 246, 0.25);
+            border-top: 1px solid rgba(59, 130, 246, 0.4);
+            border-radius: 16px;
+            font-weight: 500;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .btn-secondary i {
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(30, 41, 59, 0.85);
+            border-color: rgba(59, 130, 246, 0.5);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .btn-secondary:hover i {
+            transform: rotate(360deg);
+        }
+
+        /* ===== BACK LINK ===== */
+        .back-section {
+            text-align: center;
+            margin-top: 25px;
+        }
+
+        .back-link {
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 400;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            padding: 12px 24px;
+            border-radius: 12px;
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(59, 130, 246, 0.15);
+        }
+
+        .back-link i {
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: #cbd5e1;
+            background: rgba(30, 41, 59, 0.7);
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+
+        .back-link:hover i {
+            transform: translateX(-5px);
+        }
+
+        /* ===== SECURE BADGE ===== */
+        .secure-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 25px;
+            padding: 12px 20px;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 12px;
+        }
+
+        .secure-badge i {
+            color: #10b981;
+            font-size: 1rem;
+        }
+
+        .secure-badge span {
+            color: #6ee7b7;
+            font-size: 0.85rem;
+            font-weight: 400;
+        }
+
+        /* ===== RESPONSIVE DESIGN - PROFESSIONAL ===== */
+        
+        /* Desktop (≥769px) */
+        @media (min-width: 769px) {
+            .main-wrapper {
+                max-width: 450px;
+                padding: 20px;
+                margin: 40px 20px;
+            }
+            
+            .logo {
+                font-size: 4rem;
+                letter-spacing: 5px;
+            }
+            
+            .page-title {
+                font-size: 1.6rem;
+            }
+            
+            .card {
+                padding: 45px 40px;
+            }
+            
+            .otp-input {
+                font-size: 1.8rem;
+                letter-spacing: 8px;
+                padding: 22px 30px;
+            }
+        }
+
+        /* Laptop/Tablet Large (576px - 768px) */
+        @media (max-width: 768px) {
+            .main-wrapper {
+                max-width: 420px;
+                padding: 15px;
+                margin: 30px 15px;
+            }
+            
+            .logo {
+                font-size: 3rem;
+                letter-spacing: 4px;
+            }
+            
+            .logo-icon {
+                font-size: 2rem;
+            }
+            
+            .page-title {
+                font-size: 1.3rem;
+            }
+            
+            .page-subtitle {
+                font-size: 0.9rem;
+            }
+            
+            .card {
+                padding: 35px 30px;
+            }
+            
+            .card-top-line {
+                width: 60px;
+            }
+            
+            .otp-icon-circle {
+                width: 75px;
+                height: 75px;
+                margin-bottom: 20px;
+            }
+            
+            .otp-icon {
+                font-size: 2.2rem;
+            }
+            
+            .info-box {
+                padding: 16px 18px;
+                margin-bottom: 25px;
+            }
+            
+            .info-text {
+                font-size: 0.85rem;
+            }
+            
+            .otp-label {
+                font-size: 0.88rem;
+                margin-bottom: 10px;
+            }
+            
+            .otp-input {
+                font-size: 1.5rem;
+                letter-spacing: 6px;
+                padding: 18px 25px;
+            }
+            
+            .timer {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+            
+            .timer i {
+                font-size: 1rem;
+            }
+            
+            .btn-primary {
+                padding: 17px 28px;
+                font-size: 1rem;
+                gap: 10px;
+            }
+            
+            .btn-primary i {
+                font-size: 1.1rem;
+            }
+            
+            .btn-secondary {
+                padding: 15px 24px;
+                font-size: 0.95rem;
+                gap: 8px;
+                margin-top: 12px;
+            }
+            
+            .btn-secondary i {
+                font-size: 1rem;
+            }
+            
+            .secure-badge {
+                padding: 10px 16px;
+                margin-top: 20px;
+            }
+            
+            .secure-badge i {
+                font-size: 0.9rem;
+            }
+            
+            .secure-badge span {
+                font-size: 0.8rem;
+            }
+            
+            .back-link {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+            
+            .back-link i {
+                font-size: 0.9rem;
+            }
+            
+            .orb.one, .orb.two {
+                width: 400px;
+                height: 400px;
+            }
+            
+            .orb.three {
+                width: 300px;
+                height: 300px;
+            }
+        }
+
+        /* Mobile Small (≤575px) */
+        @media (max-width: 575px) {
+            .main-wrapper {
+                max-width: 100%;
+                padding: 12px;
+                margin: 25px 12px;
+            }
+            
+            .logo {
+                font-size: 2.5rem;
+                letter-spacing: 3px;
+            }
+            
+            .logo-icon {
+                font-size: 1.8rem;
+                margin-left: 6px;
+            }
+            
+            .page-title {
+                font-size: 1.1rem;
+                margin-bottom: 6px;
+            }
+            
+            .page-subtitle {
+                font-size: 0.85rem;
+            }
+            
+            .card {
+                padding: 30px 25px;
+                border-radius: 24px;
+            }
+            
+            .card-top-line {
+                width: 50px;
+                height: 3px;
+            }
+            
+            .otp-icon-circle {
+                width: 70px;
+                height: 70px;
+                margin-bottom: 20px;
+            }
+            
+            .otp-icon {
+                font-size: 2rem;
+            }
+            
+            .info-box {
+                padding: 14px 16px;
+                margin-bottom: 22px;
+                border-radius: 12px;
+            }
+            
+            .info-text {
+                font-size: 0.8rem;
+                line-height: 1.5;
+            }
+            
+            .otp-label {
+                font-size: 0.85rem;
+                margin-bottom: 10px;
+            }
+            
+            .otp-input {
+                font-size: 1.3rem;
+                letter-spacing: 5px;
+                padding: 16px 20px;
+                border-radius: 14px;
+            }
+            
+            .timer-section {
+                margin-bottom: 20px;
+            }
+            
+            .timer {
+                padding: 10px 18px;
+                font-size: 0.85rem;
+                border-radius: 10px;
+            }
+            
+            .timer i {
+                font-size: 0.9rem;
+            }
+            
+            .btn-primary {
+                padding: 16px 24px;
+                font-size: 0.95rem;
+                gap: 8px;
+                border-radius: 14px;
+            }
+            
+            .btn-primary i {
+                font-size: 1rem;
+            }
+            
+            .btn-secondary {
+                padding: 14px 20px;
+                font-size: 0.9rem;
+                gap: 8px;
+                margin-top: 10px;
+                border-radius: 14px;
+            }
+            
+            .btn-secondary i {
+                font-size: 0.9rem;
+            }
+            
+            .secure-badge {
+                padding: 8px 14px;
+                margin-top: 18px;
+                border-radius: 10px;
+            }
+            
+            .secure-badge i {
+                font-size: 0.85rem;
+            }
+            
+            .secure-badge span {
+                font-size: 0.75rem;
+            }
+            
+            .back-section {
+                margin-top: 20px;
+            }
+            
+            .back-link {
+                padding: 10px 18px;
+                font-size: 0.85rem;
+                border-radius: 10px;
+            }
+            
+            .back-link i {
+                font-size: 0.85rem;
+            }
+            
+            .orb {
+                filter: blur(140px);
+            }
+            
+            .orb.one, .orb.two {
+                width: 320px;
+                height: 320px;
+            }
+            
+            .orb.three {
+                width: 250px;
+                height: 250px;
+            }
+        }
+
+        /* Mobile Extra Small (≤480px) */
+        @media (max-width: 480px) {
+            .main-wrapper {
+                margin: 20px 10px;
+                padding: 10px;
+            }
+            
+            .logo {
+                font-size: 2.2rem;
+            }
+            
+            .page-title {
+                font-size: 1rem;
+            }
+            
+            .card {
+                padding: 28px 22px;
+            }
+            
+            .otp-icon-circle {
+                width: 65px;
+                height: 65px;
+            }
+            
+            .otp-icon {
+                font-size: 1.8rem;
+            }
+            
+            .otp-input {
+                font-size: 1.2rem;
+                letter-spacing: 4px;
+                padding: 14px 18px;
+            }
+        }
+
+        /* Ultra Mobile (≤375px) */
+        @media (max-width: 375px) {
+            .main-wrapper {
+                margin: 15px 8px;
+                padding: 8px;
+            }
+            
+            .logo {
+                font-size: 1.8rem;
+                letter-spacing: 2px;
+            }
+            
+            .logo-icon {
+                font-size: 1.5rem;
+            }
+            
+            .page-title {
+                font-size: 0.9rem;
+            }
+            
+            .page-subtitle {
+                font-size: 0.75rem;
+            }
+            
+            .card {
+                padding: 24px 18px;
+                border-radius: 20px;
+            }
+            
+            .otp-icon-circle {
+                width: 60px;
+                height: 60px;
+                margin-bottom: 18px;
+            }
+            
+            .otp-icon {
+                font-size: 1.6rem;
+            }
+            
+            .info-text {
+                font-size: 0.75rem;
+            }
+            
+            .otp-input {
+                font-size: 1.1rem;
+                letter-spacing: 3px;
+                padding: 12px 16px;
+            }
+            
+            .btn-primary, .btn-secondary {
+                padding: 14px 18px;
+                font-size: 0.85rem;
+            }
+        }
+
+        /* Touch Device Optimization */
+        @media (hover: none) and (pointer: coarse) {
+            .btn-primary:hover,
+            .btn-secondary:hover,
+            .back-link:hover {
+                transform: none;
+            }
+            
+            .otp-input:focus {
+                transform: none;
+            }
+        }
+
+        /* Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+            .orb,
+            .particle,
+            .logo,
+            .logo-icon,
+            .otp-icon-circle,
+            .card,
+            .timer i {
+                animation: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- BACKGROUND ELEMENTS -->
+    <div class="bg-grid"></div>
+    <div class="bg-gradient-overlay"></div>
+    
+    <!-- FLOATING ORBS -->
+    <div class="orb one"></div>
+    <div class="orb two"></div>
+    <div class="orb three"></div>
+    
+    <!-- PARTICLES -->
+    <div class="particles" id="particles"></div>
+
+    <!-- MAIN CONTAINER -->
+    <div class="main-wrapper">
+        <!-- LOGO SECTION -->
+        <div class="logo-section">
+            <div class="logo">
+                VaultX
+                <i class="fas fa-shield-halved logo-icon"></i>
+            </div>
+            <div class="page-title">OTP Verification</div>
+            <div class="page-subtitle">Secure your VaultX account</div>
+        </div>
+
+        <!-- OTP CARD -->
+        <div class="card">
+            <div class="card-top-line"></div>
+
+            <!-- OTP ICON CIRCLE -->
+            <div class="otp-icon-circle">
+                <i class="fas fa-mobile-screen-button otp-icon"></i>
+            </div>
+
+            <!-- INFO BOX -->
+            <div class="info-box">
+                <div class="info-text">
+                    <i class="fas fa-shield-alt"></i>
+                    OTP sent to your registered mobile number.<br>
+                    <strong>Do not share it with anyone.</strong>
+                </div>
+            </div>
+
+            <!-- OTP INPUT -->
+            <div class="otp-input-wrapper">
+                <label class="otp-label">Enter 6-Digit OTP</label>
+                <input 
+                    type="text" 
+                    class="otp-input" 
+                    id="otp" 
+                    placeholder="------"
+                    maxlength="6"
+                    pattern="[0-9]{6}"
+                    required
+                    autocomplete="off"
+                    inputmode="numeric"
+                >
+            </div>
+
+            <!-- TIMER -->
+            <div class="timer-section">
+                <div class="timer" id="timer">
+                    <i class="fas fa-clock"></i>
+                    <span>OTP expires in 03:00</span>
+                </div>
+            </div>
+
+            <!-- VERIFY BUTTON -->
+            <button class="btn-primary" onclick="verifyOTP()">
+                <i class="fas fa-check-circle"></i>
+                Verify OTP
+            </button>
+
+            <!-- RESEND BUTTON -->
+            <button class="btn-secondary" onclick="resendOTP()">
+                <i class="fas fa-paper-plane"></i>
+                Resend OTP
+            </button>
+
+            <!-- SECURE BADGE -->
+            <div class="secure-badge">
+                <i class="fas fa-lock"></i>
+                <span>End-to-end encrypted verification</span>
+            </div>
+
+            <!-- BACK LINK -->
+            <div class="back-section">
+                <a href="index.html" class="back-link">
+                    <i class="fas fa-arrow-left"></i>
+                    Back to Home
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ===== PARTICLE GENERATOR =====
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = window.innerWidth < 576 ? 12 : 20;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 20 + 's';
+                particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        createParticles();
+
+        // ===== MOUSE MOVEMENT EFFECT (Disabled on Mobile) =====
+        if (window.innerWidth > 768) {
+            document.addEventListener('mousemove', (e) => {
+                const orbs = document.querySelectorAll('.orb');
+                const mouseX = e.clientX / window.innerWidth - 0.5;
+                const mouseY = e.clientY / window.innerHeight - 0.5;
+
+                orbs.forEach((orb, index) => {
+                    const speed = (index + 1) * 15;
+                    orb.style.transform = `translate(${mouseX * speed}px, ${mouseY * speed}px)`;
+                });
+            });
+        }
+
+        // ===== OTP INPUT AUTO-FOCUS NEXT =====
+        const otpInput = document.getElementById('otp');
+        otpInput.addEventListener('input', function() {
+            this.value = this.value.replace(/[^0-9]/g, ); // Only numbers
+            if (this.value.length === 6) {
+                this.blur();
+            }
+        });
+
+        otpInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                verifyOTP();
+            }
+            
+            // Prevent non-numeric input
+            if ((!/[0-9]/.test(e.key) && e.key !== 'Backspace') && e.key !== 'Tab') {
+                e.preventDefault();
+            }
+        });
+
+        // Auto-submit on 6 digits (optional)
+        otpInput.addEventListener('input', function() {
+            if (this.value.length === 6) {
+                // Optional: Auto-verify after 500ms
+                setTimeout(() => {
+                    verifyOTP();
+                }, 500);
+            }
+        });
+
+        // ===== TIMER =====
+        let time = 180; // 3 minutes
+        let timerEl = document.getElementById("timer");
+        let countdownInterval = null;
+
+        function startTimer() {
+            time = 180;
+            timerEl.classList.remove('expired');
+            
+            countdownInterval = setInterval(() => {
+                let min = Math.floor(time / 60);
+                let sec = time % 60;
+
+                timerEl.innerHTML = `
+                    <i class="fas fa-clock"></i>
+                    <span>OTP expires in ${min}:${sec < 10 ? "0" + sec : sec}</span>
+                `;
+
+                time--;
+
+                if (time < 60) {
+                    timerEl.classList.add('expired');
+                }
+
+                if (time < 0) {
+                    clearInterval(countdownInterval);
+                    timerEl.innerHTML = `
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <span>OTP expired. Resend required.</span>
+                    `;
+                    timerEl.classList.add('expired');
+                }
+            }, 1000);
+        }
+
+        // Start timer on page load
+        startTimer();
+
+        // ===== RESEND OTP =====
+        function resendOTP() {
+            const phone = localStorage.getItem("vaultx_phone");
+            
+            if (!phone) {
+                alert("No phone number found. Please register again.");
+                window.location.href = "register.html";
+                return;
+            }
+
+            const btn = document.querySelector('.btn-secondary');
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            btn.disabled = true;
+
+            fetch("http://localhost:8080/api/auth/resend-otp", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ phone: phone })
+            })
+            .then(res => res.json())
+            .then(data => {
+                setTimeout(() => {
+                    alert("OTP resent successfully to your mobile number");
+                    btn.innerHTML = '<i class="fas fa-paper-plane"></i> Resend OTP';
+                    btn.disabled = false;
+                    startTimer(); // Reset timer
+                }, 1000);
+            })
+            .catch(err => {
+                alert("Failed to resend OTP. Please try again.");
+                btn.innerHTML = '<i class="fas fa-paper-plane"></i> Resend OTP';
+                btn.disabled = false;
+            });
+        }
+
+        // ===== VERIFY OTP =====
+        function verifyOTP() {
+            const otp = document.getElementById("otp").value;
+            const phone = localStorage.getItem("vaultx_phone");
+
+            if (!otp || otp.length !== 6) {
+                alert("Please enter a valid 6-digit OTP");
+                return;
+            }
+
+            const btn = document.querySelector('.btn-primary');
+
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verifying...';
+            btn.disabled = true;
+
+            fetch("http://localhost:8080/api/auth/verify-otp", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    phone: phone,
+                    otp: otp
+                })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    btn.innerHTML = '<i class="fas fa-check"></i> Verified Successfully!';
+                    btn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+
+                    setTimeout(() => {
+                        fetch("http://localhost:8080/api/auth/login", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({
+                                phone: phone
+                            })
+                        })
+                        .then(res => res.json())
+                        .then(user => {
+                            localStorage.setItem("vaultx_logged_in", "true");
+                            localStorage.setItem("accountNumber", user.accountNumber);
+                            localStorage.setItem("userName", user.name);
+                            localStorage.setItem("phone", user.phone);
+
+                            window.location.href = "welcome.html";
+                        });
+                    }, 500);
+                } else {
+                    btn.innerHTML = '<i class="fas fa-times"></i> Invalid OTP';
+                    btn.style.background = 'linear-gradient(135deg, #ef4444, #dc2626)';
+
+                    setTimeout(() => {
+                        btn.innerHTML = '<i class="fas fa-check-circle"></i> Verify OTP';
+                        btn.style.background = '';
+                        btn.disabled = false;
+                        document.getElementById("otp").value = "";
+                        document.getElementById("otp").focus();
+                    }, 1000);
+                }
+            })
+            .catch(err => {
+                console.log(err);
+                alert("Verification failed");
+                btn.innerHTML = '<i class="fas fa-check-circle"></i> Verify OTP';
+                btn.disabled = false;
+            });
+        }
+    </script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Font Awesome -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,1721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VaultX Dashboard | Smart Banking. Secure Future.</title>
+    
+    <!-- Bootstrap 5.3 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Material Icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+    
+    <style>
+        /* ===== RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #02040a;
+            color: white;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* ===== DYNAMIC BACKGROUND ===== */
+        .bg-grid {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(59, 130, 246, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(59, 130, 246, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            z-index: 1;
+        }
+
+        .bg-gradient-overlay {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(37, 99, 235, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(8, 145, 178, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(2, 6, 23, 1) 0%, rgba(2, 4, 10, 1) 100%);
+            z-index: 2;
+        }
+
+        /* ===== FLOATING ORBS ===== */
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(200px);
+            opacity: 0.5;
+            z-index: 3;
+            animation: orbFloat 20s ease-in-out infinite;
+        }
+
+        .orb.one {
+            width: 700px;
+            height: 700px;
+            background: #1d4ed8;
+            top: -300px;
+            left: -200px;
+        }
+
+        .orb.two {
+            width: 600px;
+            height: 600px;
+            background: #0891b2;
+            bottom: -250px;
+            right: -250px;
+            animation-delay: -10s;
+        }
+
+        .orb.three {
+            width: 400px;
+            height: 400px;
+            background: #3b82f6;
+            top: 50%;
+            right: 10%;
+            opacity: 0.3;
+            animation-delay: -5s;
+        }
+
+        @keyframes orbFloat {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(50px, 40px) scale(1.05); }
+            50% { transform: translate(30px, -30px) scale(0.98); }
+            75% { transform: translate(-40px, 35px) scale(1.02); }
+        }
+
+        /* ===== PARTICLES ===== */
+        .particles {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: 4;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(59, 130, 246, 0.6);
+            border-radius: 50%;
+            animation: particleFloat 25s linear infinite;
+        }
+
+        @keyframes particleFloat {
+            0% { transform: translateY(100vh) translateX(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) translateX(50px); opacity: 0; }
+        }
+
+        /* ===== NAVBAR ===== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background: rgba(5, 10, 25, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            z-index: 1000;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .navbar-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo {
+            font-size: 2.2rem;
+            font-weight: 900;
+            letter-spacing: 3px;
+            background: linear-gradient(135deg, #60a5fa, #3b82f6, #06b6d4);
+            color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+            text-shadow: 0 0 40px rgba(59, 130, 246, 0.5);
+        }
+
+        .logo-icon {
+            font-size: 1.8rem;
+            color: #06b6d4;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 35px;
+        }
+
+        .nav-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 8px 0;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #3b82f6, #06b6d4);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #cbd5e1;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a.active {
+            color: #3b82f6;
+        }
+
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .profile-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .profile-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .profile-name {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #e2e8f0;
+        }
+
+        .profile-role {
+            font-size: 0.75rem;
+            color: #64748b;
+            font-weight: 400;
+        }
+
+        .profile-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: 2px solid rgba(59, 130, 246, 0.4);
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+        }
+
+        .logout-btn {
+            padding: 10px 20px;
+            background: rgba(239, 68, 68, 0.15);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #f87171;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background: rgba(239, 68, 68, 0.25);
+            border-color: rgba(239, 68, 68, 0.5);
+            transform: translateY(-2px);
+        }
+
+        /* ===== MOBILE MENU BUTTON ===== */
+        .mobile-menu-btn {
+            display: none;
+            background: rgba(59, 130, 246, 0.2);
+            border: 1px solid rgba(59, 130, 246, 0.4);
+            color: #3b82f6;
+            padding: 8px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-btn:hover {
+            background: rgba(59, 130, 246, 0.3);
+        }
+
+        /* ===== MAIN CONTAINER ===== */
+        .main-container {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            margin-top: 70px;
+            min-height: calc(100vh - 70px);
+        }
+
+        /* ===== SIDEBAR ===== */
+        .sidebar {
+            width: 280px;
+            background: rgba(5, 10, 25, 0.7);
+            backdrop-filter: blur(20px);
+            border-right: 1px solid rgba(59, 130, 246, 0.15);
+            padding: 30px 25px;
+            position: fixed;
+            height: calc(100vh - 70px);
+            overflow-y: auto;
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #e2e8f0;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sidebar-title i {
+            color: #3b82f6;
+        }
+
+        .menu {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .menu-btn {
+            padding: 16px 20px;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(59, 130, 246, 0.15);
+            border-radius: 12px;
+            color: #94a3b8;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-align: left;
+        }
+
+        .menu-btn i {
+            font-size: 1.1rem;
+            color: #64748b;
+            transition: all 0.3s ease;
+        }
+
+        .menu-btn:hover {
+            background: rgba(30, 41, 59, 0.8);
+            border-color: rgba(59, 130, 246, 0.3);
+            color: #cbd5e1;
+            transform: translateX(5px);
+        }
+
+        .menu-btn:hover i {
+            color: #3b82f6;
+            transform: translateX(3px);
+        }
+
+        .menu-btn.active {
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.2), rgba(8, 145, 178, 0.2));
+            border-color: rgba(59, 130, 246, 0.5);
+            color: #e2e8f0;
+            box-shadow: 0 0 20px rgba(37, 99, 235, 0.3);
+        }
+
+        .menu-btn.active i {
+            color: #3b82f6;
+        }
+
+        /* ===== CONTENT AREA ===== */
+        .content {
+            margin-left: 280px;
+            padding: 40px;
+            width: 100%;
+            animation: contentEnter 0.8s ease;
+        }
+
+        @keyframes contentEnter {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            margin-bottom: 40px;
+        }
+
+        .hero-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, #e2e8f0, #cbd5e1);
+            color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.1rem;
+            color: #94a3b8;
+            font-weight: 300;
+        }
+
+        /* ===== STATS CARDS ===== */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: rgba(5, 10, 25, 0.75);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(59, 130, 246, 0.15);
+            border-radius: 18px;
+            padding: 28px 25px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            transition: all 0.4s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(59, 130, 246, 0.3);
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.6);
+        }
+
+        .stat-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(37, 99, 235, 0.15);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 20px rgba(37, 99, 235, 0.2);
+        }
+
+        .stat-icon i {
+            font-size: 1.5rem;
+            color: #3b82f6;
+        }
+
+        .stat-change {
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 6px 12px;
+            border-radius: 8px;
+        }
+
+        .stat-change.positive {
+            background: rgba(16, 185, 129, 0.15);
+            color: #10b981;
+        }
+
+        .stat-change.negative {
+            background: rgba(239, 68, 68, 0.15);
+            color: #ef4444;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #94a3b8;
+            font-weight: 400;
+            margin-bottom: 8px;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #e2e8f0;
+        }
+
+        /* ===== CREDIT CARD ===== */
+        .card-section {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #e2e8f0;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-title i {
+            color: #3b82f6;
+        }
+
+        .credit-card-wrapper {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 30px auto;
+            perspective: 1500px;
+        }
+
+        .credit-card {
+            width: 400px;
+            height: 250px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 1s ease;
+            will-change: transform;
+            margin: 0 auto;
+            display: block;
+        }
+
+        .credit-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .credit-card.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            padding: 30px;
+            border-radius: 20px;
+            background: linear-gradient(
+                135deg,
+                rgba(5,10,25,0.95),
+                rgba(30,41,59,0.95)
+            );
+            border: 1px solid rgba(59,130,246,0.3);
+            box-shadow:
+                0 20px 60px rgba(0,0,0,0.6),
+                0 0 40px rgba(37,99,235,0.2);
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            overflow: hidden;
+        }
+
+        .card-front {
+            z-index: 2;
+        }
+
+        .card-back {
+            transform: rotateY(180deg);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card-brand {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #3b82f6;
+            letter-spacing: 3px;
+            margin-bottom: 30px;
+        }
+
+        .card-badge {
+            font-size: 0.7rem;
+            color: #06b6d4;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .card-balance-label {
+            font-size: 0.85rem;
+            color: #94a3b8;
+            margin-bottom: 8px;
+        }
+
+        .card-balance {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #e2e8f0;
+            margin-bottom: 30px;
+        }
+
+        .card-number {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #cbd5e1;
+            letter-spacing: 3px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .card-info {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .card-info-item small {
+            font-size: 0.7rem;
+            color: #64748b;
+            margin-bottom: 5px;
+        }
+
+        .card-info-item span {
+            font-size: 0.9rem;
+            color: #e2e8f0;
+            font-weight: 500;
+        }
+
+        .card-back-content {
+            text-align: center;
+            padding-top: 40px;
+        }
+
+        .card-stripe {
+            width: 100%;
+            height: 45px;
+            background: linear-gradient(90deg, #2c2c2c, #4a4a4a, #2c2c2c);
+            margin-bottom: 25px;
+            border-radius: 8px;
+        }
+
+        .card-cvv-label {
+            font-size: 0.8rem;
+            color: #94a3b8;
+            margin-bottom: 8px;
+        }
+
+        .card-cvv {
+            width: 120px;
+            text-align: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #0f172a;
+            background: white;
+            padding: 12px;
+            border-radius: 10px;
+            letter-spacing: 3px;
+            box-shadow: 0 0 20px rgba(255,255,255,0.25);
+        }
+
+        .card-flip-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(59, 130, 246, 0.2);
+            border: 1px solid rgba(59, 130, 246, 0.4);
+            color: #3b82f6;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .card-face::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                120deg,
+                transparent,
+                rgba(255,255,255,0.08),
+                transparent
+            );
+            transform: rotate(25deg);
+            animation: shine 6s linear infinite;
+        }
+
+        @keyframes shine {
+            0% {
+                transform: translateX(-100%) rotate(25deg);
+            }
+            100% {
+                transform: translateX(100%) rotate(25deg);
+            }
+        }
+
+        .card-flip-btn:hover {
+            background: rgba(59, 130, 246, 0.3);
+        }
+
+        /* ===== ACTION PANEL ===== */
+        .action-panel {
+            background: rgba(5, 10, 25, 0.75);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(59, 130, 246, 0.15);
+            border-radius: 20px;
+            padding: 35px 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .action-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #e2e8f0;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .action-title i {
+            color: #3b82f6;
+        }
+
+        .action-input {
+            width: 100%;
+            padding: 18px 20px;
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 14px;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+        }
+
+        .action-input:focus {
+            background: rgba(30, 41, 59, 0.9);
+            border-color: rgba(59, 130, 246, 0.6);
+            box-shadow: 0 0 25px rgba(59, 130, 246, 0.3);
+            outline: none;
+        }
+
+        .action-btn {
+            width: 100%;
+            padding: 18px 32px;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8, #0891b2);
+            color: white;
+            border: none;
+            border-radius: 14px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.4);
+        }
+
+        .action-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(37, 99, 235, 0.6);
+        }
+
+        .action-result {
+            margin-top: 25px;
+            padding: 20px;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 12px;
+            color: #cbd5e1;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            display: none;
+        }
+
+        .action-result.show {
+            display: block;
+            animation: resultEnter 0.5s ease;
+        }
+
+        @keyframes resultEnter {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== HISTORY BOX ===== */
+        .history-box {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .tx {
+            padding: 10px;
+            margin: 5px 0;
+            background: rgba(15, 23, 42, 0.5);
+            border-radius: 8px;
+        }
+
+        .tx hr {
+            border-color: rgba(59, 130, 246, 0.2);
+            margin: 10px 0;
+        }
+
+        /* ===== RESPONSIVE DESIGN - PROFESSIONAL ===== */
+        
+        /* Desktop (1200px+) */
+        @media (min-width: 1200px) {
+            .credit-card {
+                width: 400px;
+                height: 250px;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .content {
+                padding: 40px;
+            }
+        }
+
+        /* Laptop/Large Tablet (992px - 1199px) */
+        @media (max-width: 1199px) {
+            .credit-card {
+                width: 380px;
+                height: 240px;
+            }
+            
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 20px;
+            }
+            
+            .stat-card {
+                padding: 24px 20px;
+            }
+            
+            .stat-value {
+                font-size: 1.8rem;
+            }
+            
+            .content {
+                padding: 35px;
+            }
+        }
+
+        /* Tablet (768px - 991px) */
+        @media (max-width: 991px) {
+            .sidebar {
+                width: 250px;
+                padding: 25px 20px;
+            }
+            
+            .content {
+                margin-left: 250px;
+                padding: 30px;
+            }
+            
+            .credit-card {
+                width: 350px;
+                height: 220px;
+            }
+            
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+                margin-bottom: 30px;
+            }
+            
+            .stat-card {
+                padding: 22px 18px;
+            }
+            
+            .stat-icon {
+                width: 45px;
+                height: 45px;
+            }
+            
+            .stat-icon i {
+                font-size: 1.3rem;
+            }
+            
+            .stat-value {
+                font-size: 1.6rem;
+            }
+            
+            .action-panel {
+                padding: 30px 25px;
+            }
+            
+            .nav-links {
+                gap: 20px;
+            }
+            
+            .nav-links a {
+                font-size: 0.85rem;
+            }
+            
+            .orb.one, .orb.two {
+                width: 500px;
+                height: 500px;
+            }
+            
+            .orb.three {
+                width: 300px;
+                height: 300px;
+            }
+        }
+
+        /* Mobile Large (576px - 767px) */
+        @media (max-width: 767px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .sidebar {
+                left: -250px;
+                width: 250px;
+            }
+            
+            .sidebar.active {
+                left: 0;
+            }
+            
+            .content {
+                margin-left: 0;
+                padding: 25px;
+            }
+            
+            .credit-card {
+                width: 320px;
+                height: 210px;
+            }
+            
+            .hero-title {
+                font-size: 1.7rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 0.9rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 18px;
+                margin-bottom: 25px;
+            }
+            
+            .stat-card {
+                padding: 20px 16px;
+            }
+            
+            .stat-icon {
+                width: 42px;
+                height: 42px;
+            }
+            
+            .stat-icon i {
+                font-size: 1.2rem;
+            }
+            
+            .stat-value {
+                font-size: 1.5rem;
+            }
+            
+            .stat-label {
+                font-size: 0.85rem;
+            }
+            
+            .action-panel {
+                padding: 25px 20px;
+            }
+            
+            .action-title {
+                font-size: 1.2rem;
+            }
+            
+            .action-input {
+                padding: 15px 18px;
+                font-size: 1rem;
+            }
+            
+            .action-btn {
+                padding: 16px 28px;
+                font-size: 1rem;
+            }
+            
+            .navbar {
+                padding: 0 20px;
+            }
+            
+            .logo {
+                font-size: 1.8rem;
+            }
+            
+            .logo-icon {
+                font-size: 1.5rem;
+            }
+            
+            .profile-info {
+                gap: 8px;
+            }
+            
+            .profile-name {
+                font-size: 0.8rem;
+            }
+            
+            .profile-role {
+                font-size: 0.7rem;
+            }
+            
+            .profile-avatar {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .logout-btn {
+                padding: 8px 16px;
+                font-size: 0.75rem;
+            }
+            
+            .card-flip-btn {
+                top: 15px;
+                right: 15px;
+                padding: 6px 12px;
+                font-size: 0.7rem;
+            }
+            
+            .card-brand {
+                font-size: 1.5rem;
+                margin-bottom: 25px;
+            }
+            
+            .card-balance {
+                font-size: 1.8rem;
+                margin-bottom: 25px;
+            }
+            
+            .card-number {
+                font-size: 1.2rem;
+                margin-bottom: 25px;
+            }
+            
+            .orb {
+                filter: blur(150px);
+            }
+            
+            .orb.one, .orb.two {
+                width: 400px;
+                height: 400px;
+            }
+        }
+
+        /* Mobile Small (≤575px) */
+        @media (max-width: 575px) {
+            .credit-card {
+                width: 290px;
+                height: 195px;
+            }
+            
+            .hero-title {
+                font-size: 1.4rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 0.8rem;
+            }
+            
+            .stats-grid {
+                gap: 15px;
+                margin-bottom: 20px;
+            }
+            
+            .stat-card {
+                padding: 18px 14px;
+            }
+            
+            .stat-icon {
+                width: 38px;
+                height: 38px;
+            }
+            
+            .stat-icon i {
+                font-size: 1.1rem;
+            }
+            
+            .stat-value {
+                font-size: 1.3rem;
+            }
+            
+            .stat-label {
+                font-size: 0.8rem;
+                margin-bottom: 6px;
+            }
+            
+            .stat-change {
+                font-size: 0.75rem;
+                padding: 5px 10px;
+            }
+            
+            .action-panel {
+                padding: 20px 15px;
+            }
+            
+            .action-title {
+                font-size: 1.1rem;
+                margin-bottom: 20px;
+            }
+            
+            .action-input {
+                padding: 14px 16px;
+                font-size: 0.95rem;
+                margin-bottom: 16px;
+            }
+            
+            .action-btn {
+                padding: 15px 24px;
+                font-size: 0.95rem;
+            }
+            
+            .card-brand {
+                font-size: 1.3rem;
+                margin-bottom: 20px;
+            }
+            
+            .card-balance-label {
+                font-size: 0.75rem;
+            }
+            
+            .card-balance {
+                font-size: 1.6rem;
+                margin-bottom: 20px;
+            }
+            
+            .card-number {
+                font-size: 1.1rem;
+                margin-bottom: 20px;
+            }
+            
+            .card-info-item small {
+                font-size: 0.65rem;
+            }
+            
+            .card-info-item span {
+                font-size: 0.8rem;
+            }
+            
+            .card-cvv {
+                width: 100px;
+                font-size: 1.5rem;
+                padding: 10px;
+            }
+            
+            .card-stripe {
+                height: 40px;
+                margin-bottom: 20px;
+            }
+            
+            .navbar {
+                height: 60px;
+                padding: 0 15px;
+            }
+            
+            .logo {
+                font-size: 1.5rem;
+            }
+            
+            .logo-icon {
+                font-size: 1.3rem;
+            }
+            
+            .profile-avatar {
+                width: 35px;
+                height: 35px;
+            }
+            
+            .sidebar {
+                width: 220px;
+                padding: 20px 15px;
+            }
+            
+            .menu-btn {
+                padding: 14px 16px;
+                font-size: 0.85rem;
+            }
+            
+            .menu-btn i {
+                font-size: 1rem;
+            }
+            
+            .sidebar-title {
+                font-size: 1rem;
+                margin-bottom: 20px;
+            }
+        }
+
+        /* Ultra Mobile (≤375px) */
+        @media (max-width: 375px) {
+            .credit-card {
+                width: 260px;
+                height: 180px;
+            }
+            
+            .hero-title {
+                font-size: 1.2rem;
+            }
+            
+            .stat-value {
+                font-size: 1.2rem;
+            }
+            
+            .card-number {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- BACKGROUND -->
+    <div class="bg-grid"></div>
+    <div class="bg-gradient-overlay"></div>
+    
+    <!-- ORBS -->
+    <div class="orb one"></div>
+    <div class="orb two"></div>
+    <div class="orb three"></div>
+    
+    <!-- PARTICLES -->
+    <div class="particles" id="particles"></div>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="navbar-logo">
+            <button class="mobile-menu-btn" onclick="toggleSidebar()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="logo">VaultX</div>
+            <i class="fas fa-shield-halved logo-icon"></i>
+        </div>
+
+        <div class="nav-links">
+            <a href="#" class="active">Dashboard</a>
+            <a href="#">Transactions</a>
+            <a href="#">Cards</a>
+            <a href="#">Settings</a>
+        </div>
+
+        <div class="profile-section">
+            <div class="profile-info">
+                <div class="profile-name" id="profileName">
+                    User
+                </div>
+                <div class="profile-role">Premium User</div>
+            </div>
+            <img src="https://ui-avatars.com/api/?name=Shivam+Kumar&background=3b82f6&color=fff&fontSize=0.5" class="profile-avatar">
+            <button class="logout-btn" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTAINER -->
+    <div class="main-container">
+        <!-- SIDEBAR -->
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-title">
+                <i class="fas fa-exchange-alt"></i>
+                Transaction Menu
+            </div>
+
+            <div class="menu">
+                <button class="menu-btn" onclick="setMode('withdraw')">
+                    <i class="fas fa-money-bill-wave"></i>
+                    Withdraw Money
+                </button>
+                <button class="menu-btn" onclick="setMode('deposit')">
+                    <i class="fas fa-cash-register"></i>
+                    Deposit Money
+                </button>
+                <button class="menu-btn" onclick="setMode('balance')">
+                    <i class="fas fa-wallet"></i>
+                    Show Balance
+                </button>
+                <button class="menu-btn" onclick="setMode('history')">
+                    <i class="fas fa-history"></i>
+                    Transaction History
+                </button>
+                <button class="menu-btn" onclick="setMode('transfer')">
+                    <i class="fas fa-paper-plane"></i>
+                    Transfer Money
+                </button>
+                <button class="menu-btn" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Logout
+                </button>
+            </div>
+        </div>
+
+        <!-- CONTENT -->
+        <div class="content">
+            <!-- HERO -->
+            <div class="hero">
+                <h1 class="hero-title">Smart Banking. Ultra Secure Future.</h1>
+                <p class="hero-subtitle">Manage deposits, withdrawals, and cards with VaultX premium system.</p>
+            </div>
+
+            <!-- STATS -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon">
+                            <i class="fas fa-wallet"></i>
+                        </div>
+                        <div class="stat-change positive">+12.5%</div>
+                    </div>
+                    <div class="stat-label">Total Balance</div>
+                    <div class="stat-value" id="totalBalance">₹0</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon">
+                            <i class="fas fa-arrow-up"></i>
+                        </div>
+                        <div class="stat-change positive">+8.2%</div>
+                    </div>
+                    <div class="stat-label">This Month</div>
+                    <div class="stat-value" id="totalDeposit">₹0</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon">
+                            <i class="fas fa-arrow-down"></i>
+                        </div>
+                        <div class="stat-change negative">-3.1%</div>
+                    </div>
+                    <div class="stat-label">Withdrawals</div>
+                    <div class="stat-value" id="totalWithdraw">₹0</div>
+                </div>
+            </div>
+            
+            <div class="credit-card-wrapper">
+                <div class="credit-card" id="creditCard">
+                    <!-- FRONT -->
+                    <div class="card-face card-front">
+                        <button class="card-flip-btn" onclick="flipCard()">
+                            <i class="fas fa-sync-alt"></i> Flip
+                        </button>
+
+                        <div class="card-brand">
+                            VAULTX
+                            <span class="card-badge">PREMIUM</span>
+                        </div>
+
+                        <div class="card-balance-label">
+                            Available Balance
+                        </div>
+
+                        <div class="card-balance" id="cardBalance">
+                            ₹0
+                        </div>
+
+                        <div class="card-number" id="cardNumber">
+                            **** **** **** 0000
+                        </div>
+
+                        <div class="card-info">
+                            <div class="card-info-item">
+                                <small>Card Holder</small>
+                                <span id="cardHolder">USER</span>
+                            </div>
+
+                            <div class="card-info-item">
+                                <small>Valid Thru</small>
+                                <span>12/30</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- BACK -->
+                    <div class="card-face card-back">
+                        <div class="card-back-content">
+                            <div class="card-stripe"></div>
+
+                            <div class="card-cvv-label">
+                                Security Code
+                            </div>
+
+                            <div class="card-cvv">
+                                427
+                            </div>
+
+                            <small style="color:#64748b;">
+                                Secure Banking Powered by VaultX
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ACTION PANEL -->
+            <div class="action-panel">
+                <div class="action-title">
+                    <i class="fas fa-exchange-alt"></i>
+                    <span id="actionTitle">Select Action</span>
+                </div>
+
+                <input type="number" class="action-input" id="amount" placeholder="Enter amount">
+
+                <button class="action-btn" onclick="performAction()">
+                    <i class="fas fa-check-circle"></i>
+                    Submit Transaction
+                </button>
+
+                <div class="action-result" id="result"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ===== PARTICLES =====
+        let accountNumber = localStorage.getItem("accountNumber");
+        function createParticles() {
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 25; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 25 + 's';
+                particle.style.animationDuration = (20 + Math.random() * 10) + 's';
+                container.appendChild(particle);
+            }
+        }
+        createParticles();
+
+        // ===== MOBILE SIDEBAR TOGGLE =====
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('active');
+        }
+
+        // Close sidebar when clicking on content
+        document.addEventListener('click', (e) => {
+            const sidebar = document.getElementById('sidebar');
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            
+            if (!sidebar.contains(e.target) && !mobileMenuBtn.contains(e.target) && window.innerWidth < 768) {
+                sidebar.classList.remove('active');
+            }
+        });
+
+        // ===== MOUSE TRACKING =====
+        document.addEventListener('mousemove', (e) => {
+            const orbs = document.querySelectorAll('.orb');
+            const mouseX = e.clientX / window.innerWidth - 0.5;
+            const mouseY = e.clientY / window.innerHeight - 0.5;
+            orbs.forEach((orb, i) => {
+                const speed = (i + 1) * 20;
+                orb.style.transform = `translate(${mouseX * speed}px, ${mouseY * speed}px)`;
+            });
+        });
+
+        // ===== CARD FLIP =====
+        function flipCard() {
+            document.getElementById('creditCard').classList.toggle('flipped');
+        }
+
+        // ===== MODE SETTER =====
+        let mode = '';
+        function setMode(selected) {
+            mode = selected;
+            document.getElementById('result').classList.remove('show');
+            document.getElementById('amount').value = '';
+            
+            document.querySelectorAll('.menu-btn').forEach(btn => btn.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+
+            const titles = {
+                withdraw: 'Withdraw Money',
+                deposit: 'Deposit Money',
+                balance: 'Check Balance',
+                history: 'Transaction History',
+                transfer: 'Transfer Money'
+            };
+            
+            document.getElementById('actionTitle').innerText = titles[mode];
+            document.getElementById('amount').style.display = mode === 'balance' || mode === 'history' ? 'none' : 'block';
+            
+            // Close sidebar on mobile after selection
+            if (window.innerWidth < 768) {
+                document.getElementById('sidebar').classList.remove('active');
+            }
+        }
+
+        // ===== ACTION PERFORM =====
+        function performAction() {
+            const resultEl = document.getElementById('result');
+            const btn = document.querySelector('.action-btn');
+
+            const amount = document.getElementById('amount').value;
+            const accountNumber = localStorage.getItem("accountNumber");
+
+            // ===== RESET RESULT =====
+            resultEl.classList.remove('show');
+            resultEl.innerText = "";
+
+            // ===== VALIDATION 1: LOGIN CHECK =====
+            if (!accountNumber) {
+                alert("Session expired. Please login again.");
+                window.location.href = "index.html";
+                return;
+            }
+
+            // ===== VALIDATION 2: AMOUNT CHECK =====
+            if (mode !== "balance" && mode !== "history") {
+                if (!amount || isNaN(amount) || parseFloat(amount) <= 0) {
+                    alert("Enter valid amount");
+                    return;
+                }
+            }
+
+            // ===== BUTTON LOADING STATE =====
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+            btn.disabled = true;
+
+            let url = "";
+            let body = null;
+
+            // ===== ROUTING =====
+            if (mode === "deposit") {
+                url = "http://localhost:8080/api/transaction/deposit";
+                body = {
+                    accountNumber: Number(accountNumber),
+                    amount: parseFloat(amount)
+                };
+            } else if (mode === "withdraw") {
+                url = "http://localhost:8080/api/transaction/withdraw";
+                body = {
+                    accountNumber: Number(accountNumber),
+                    amount: parseFloat(amount)
+                };
+            } else if (mode === "balance") {
+                fetch(`http://localhost:8080/api/transaction/balance/${accountNumber}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        resultEl.innerText = "Balance: ₹ " + data;
+                        resultEl.classList.add('show');
+
+                        btn.innerHTML = '<i class="fas fa-check-circle"></i> Done';
+                        btn.disabled = false;
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        resultEl.innerText = "Failed to fetch balance";
+                        btn.disabled = false;
+                        btn.innerHTML = '<i class="fas fa-check-circle"></i> Submit Transaction';
+                    });
+
+                return;
+            } else if (mode === "history") {
+                fetch(`http://localhost:8080/api/transaction/history/${accountNumber}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        if (!data || data.length === 0) {
+                            resultEl.innerHTML = "No transactions found";
+                        } else {
+                            let html = "<div class='history-box'>";
+
+                           data.forEach(tx => {
+
+    const date = new Date(tx.timestamp);
+
+    const formattedDate =
+        date.toLocaleDateString("en-IN") +
+        " | " +
+        date.toLocaleTimeString("en-IN");
+
+    const color =
+        tx.transactionType === "DEPOSIT"
+        ? "#22c55e"
+        : "#ef4444";
+
+    html += `
+        <div class="tx" style="
+            padding:12px;
+            margin-bottom:10px;
+            border-radius:10px;
+            background:rgba(255,255,255,0.03);
+        ">
+
+            <div style="
+                display:flex;
+                justify-content:space-between;
+                align-items:center;
+            ">
+
+                <b style="color:${color}">
+                    ${tx.transactionType}
+                </b>
+
+                <b>
+                    ₹${tx.amount}
+                </b>
+
+            </div>
+
+            <small style="
+                color:#94a3b8;
+                display:block;
+                margin-top:8px;
+            ">
+                ${formattedDate}
+            </small>
+
+        </div>
+    `;
+});
+
+                            html += "</div>";
+                            resultEl.innerHTML = html;
+                        }
+
+                        resultEl.classList.add('show');
+
+                        btn.innerHTML = '<i class="fas fa-check-circle"></i> Done';
+                        btn.disabled = false;
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        resultEl.innerText = "Failed to load history";
+                        btn.disabled = false;
+                        btn.innerHTML = '<i class="fas fa-check-circle"></i> Submit Transaction';
+                    });
+
+                return;
+            }
+
+            // ===== DEPOSIT / WITHDRAW CALL =====
+            fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(body)
+            })
+            .then(res => res.text())
+            .then(data => {
+                resultEl.innerText = data;
+                resultEl.classList.add('show');
+
+                btn.innerHTML = '<i class="fas fa-check-circle"></i> Success';
+                btn.disabled = false;
+            })
+            .catch(err => {
+                console.log(err);
+                resultEl.innerText = "Transaction Failed";
+                resultEl.classList.add('show');
+                btn.innerHTML = '<i class="fas fa-check-circle"></i> Submit Transaction';
+                btn.disabled = false;
+            });
+        }
+
+        // ===== LOGOUT =====
+        function logout() {
+            localStorage.clear();
+            window.location.href = 'index.html';
+        }
+
+        window.addEventListener("load", () => {
+            document.getElementById("profileName").innerText = localStorage.getItem("userName");
+            document.getElementById("cardHolder").innerText = localStorage.getItem("userName");
+
+            const accountNumber = localStorage.getItem("accountNumber");
+            document.getElementById("cardNumber").innerText = "**** **** **** " + accountNumber.toString().slice(-4);
+
+            fetch(`http://localhost:8080/api/transaction/balance/${accountNumber}`)
+                .then(res => res.json())
+                .then(balance => {
+                    document.getElementById("cardBalance").innerText = "₹" + balance;
+                    document.getElementById("totalBalance").innerText = "₹" + balance;
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+
+            // Total Deposit
+            fetch(`http://localhost:8080/api/transaction/total-deposit/${accountNumber}`)
+                .then(res => res.json())
+                .then(amount => {
+                    document.getElementById("totalDeposit").innerText = "₹" + amount;
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+
+            // Total Withdraw
+            fetch(`http://localhost:8080/api/transaction/total-withdraw/${accountNumber}`)
+                .then(res => res.json())
+                .then(amount => {
+                    document.getElementById("totalWithdraw").innerText = "₹" + amount;
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+</body>
+</html>
