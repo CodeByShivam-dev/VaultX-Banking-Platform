@@ -1175,7 +1175,7 @@
             btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
             btn.disabled = true;
 
-            fetch("http://localhost:8080/api/auth/resend-otp", {
+            fetch("https://vaultx-banking-platform-1.onrender.com/api/auth/resend-otp", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -1213,7 +1213,7 @@
             btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verifying...';
             btn.disabled = true;
 
-            fetch("http://localhost:8080/api/auth/verify-otp", {
+            fetch("https://vaultx-banking-platform-1.onrender.com/api/auth/verify-otp", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -1230,7 +1230,7 @@
                     btn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
 
                     setTimeout(() => {
-                        fetch("http://localhost:8080/api/auth/login", {
+                        fetch("https://vaultx-banking-platform-1.onrender.com/api/auth/login", {
                             method: "POST",
                             headers: {
                                 "Content-Type": "application/json"
