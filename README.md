@@ -345,17 +345,60 @@ The VaultX dashboard provides a premium digital banking experience with:
 
 # 📷 Screenshots
 
-> Add screenshots of:
+## 🏠 Landing Page
 
-* Landing Page
-* Registration
-* OTP Verification
-* Welcome Screen
-* Dashboard
-* Banking Card
-* Transaction History
-* WhatsApp Notifications
+<p align="center">
+  <img src="images/landing.png" alt="Landing Page" width="900">
+</p>
 
+---
+
+## 👤 Registration
+
+<p align="center">
+  <img src="images/register.png" alt="Registration" width="900">
+</p>
+
+---
+
+## 📲 OTP Verification
+
+<p align="center">
+  <img src="images/otpverify.png" alt="OTP Verification" width="900">
+</p>
+
+---
+
+## 👋 Welcome Screen
+
+<p align="center">
+  <img src="images/welcome.png" alt="Welcome Screen" width="900">
+</p>
+
+---
+
+## 💳 Dashboard
+
+<p align="center">
+  <img src="images/dashboard.png" alt="Dashboard" width="900">
+</p>
+
+---
+
+## 💎 Virtual Banking Card
+
+<p align="center">
+  <img src="images/cardfront.png" alt="Card Front" width="49%">
+  <img src="images/cardback.png" alt="Card Back" width="49%">
+</p>
+
+---
+
+## 📜 Transaction History
+
+<p align="center">
+  <img src="images/trasncation.png" alt="Transaction History" width="900">
+</p>
 ---
 
 # 👨‍💻 Author
