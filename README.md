@@ -364,15 +364,16 @@ The VaultX dashboard provides a premium digital banking experience with:
 ## 📲 OTP Verification
 
 <p align="center">
-  <img src="images/otpverify.png" alt="OTP Verification" width="900">
+  <img src="images/otpverify.png" alt="OTP Verification" width="300">
 </p>
+
 
 ---
 
 ## 👋 Welcome Screen
 
 <p align="center">
-  <img src="images/welcome.png" alt="Welcome Screen" width="900">
+  <img src="images/welcome.png" alt="Welcome Screen" width="300">
 </p>
 
 ---
